@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define IMAGE_WIDTH 256
 #define IMAGE_HEIGHT 256
@@ -18,7 +19,6 @@ int main() {
 
     fprintf(stderr, "%f", out);
     // vec3_debug(&vec1);
-    exit(1);
 
     // double len = vec3_length(&vec);
     // double len_sq = vec3_length_squared(&vec);
@@ -43,6 +43,7 @@ int main() {
             int ib = ((int)RGB_MULT * b);
 
             fprintf(stdout, "%d %d %d\n", ir, ig, ib);
+            usleep(1);
         }
     }
 }

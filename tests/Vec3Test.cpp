@@ -10,7 +10,5 @@ TEST(Vec3Test, SimpleDot) {
         Vec3 y = {0};
         vec3_init(&y, 2, 7, 1);
 
-        auto result = vec3_dot(&x, &y);
-
-        ASSERT_EQ(30, result);
+        ASSERT_EQ(30, vec3_dot(&x, &y));
 }

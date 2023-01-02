@@ -1,18 +1,27 @@
+include(FetchContent)
+FetchContent_Declare(gtest
+  QUIET
+  URL https://github.com/google/googletest/archive/release-1.12.1.tar.gz
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(gtest)
+
 add_executable(
     unit_tests
-    Vec3Test.cc
+    Vec3Test.cpp
     )
 
 target_link_libraries(unit_tests
     PRIVATE
-        ray_tracing
-        gtest_main
+    ray_tracing
+    gtest_main
     )
 
 include(GoogleTest)
 gtest_discover_tests(unit_tests
     PROPERTIES
-        LABELS "unit"
+    LABELS "unit"
     DISCOVERY_TIMEOUT
-        240
+    240
     )
