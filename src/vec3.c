@@ -70,7 +70,7 @@
                                                                                \
         return result;                                                         \
     }                                                                          \
-    void prefix##_as_array(const type *t, double result[]) {                   \
+    void prefix##_as_array(const type *t, double result[3]) {                  \
         result[0] = t->x;                                                      \
         result[1] = t->y;                                                      \
         result[2] = t->z;                                                      \
@@ -95,3 +95,9 @@ void rgbcolor_write(FILE *stream, const RGBColor *t) {
 
     fprintf(stream, "%d %d %d\n", x, y, z);
 }
+
+/* ------------------ \\
+||        Vec3        ||
+\\ ------------------ */
+
+DEF_IMPL_VEC3_METHODS(Vec3, vec3);

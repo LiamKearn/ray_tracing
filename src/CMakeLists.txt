@@ -3,8 +3,10 @@ add_library(ray_tracing)
 target_sources(ray_tracing
     PRIVATE
     vec3.c
+    ray.c
     PUBLIC
     vec3.h
+    ray.h
     )
 
 target_include_directories(ray_tracing
@@ -20,6 +22,7 @@ target_sources(debug
     PRIVATE
     main.c
     vec3.c
+    ray.c
     )
 
 target_link_libraries(debug m)

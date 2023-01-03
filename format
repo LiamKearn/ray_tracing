@@ -5,6 +5,10 @@ find $root_dir/src -name "*.c" | xargs clang-format \
     -style="{BasedOnStyle: llvm, IndentWidth: 4}" \
     -i
 
+find $root_dir/src -name "*.h" | xargs clang-format \
+    -style="{BasedOnStyle: llvm, IndentWidth: 4}" \
+    -i
+
 find $root_dir/tests -name "*.cpp" | xargs clang-format \
     -style="{BasedOnStyle: llvm, IndentWidth: 8}" \
     -i
