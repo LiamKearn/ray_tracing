@@ -9,7 +9,7 @@ FetchContent_MakeAvailable(gtest)
 
 add_executable(
     unit_tests
-    Vec3Test.cpp
+    ray_tracing_vec3_test.cpp
     )
 
 target_link_libraries(unit_tests

@@ -3,7 +3,6 @@ add_library(ray_tracing)
 
 target_sources(ray_tracing
     PRIVATE
-    main.c
     vec3.c
     PUBLIC
     vec3.h
