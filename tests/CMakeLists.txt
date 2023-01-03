@@ -4,7 +4,7 @@ FetchContent_Declare(gtest
   URL https://github.com/google/googletest/archive/release-1.12.1.tar.gz
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+set(BUILD_GMOCK ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(gtest)
 
 add_executable(
@@ -16,6 +16,7 @@ target_link_libraries(unit_tests
     PRIVATE
     ray_tracing
     gtest_main
+    gmock
     )
 
 include(GoogleTest)

@@ -1,33 +1,44 @@
-typedef struct {
-    double x;
-    double y;
-    double z;
-} Vec3;
+#include <stdio.h>
 
-void vec3_init(Vec3 *v, double x, double y, double z);
+#define DEF_VEC3(type, name) \
+    typedef struct { \
+        type x; \
+        type y; \
+        type z; \
+    } name
 
-double vec3_length_squared(Vec3 *v);
+#define DEF_VEC3_METHODS(type, prefix) \
+    double prefix##_length_squared(type *v); \
+    double prefix##_length(type *v); \
+    double prefix##_dot(const type *main, const type *other); \
+    type prefix##_cross(const type *main, const type *other); \
+    void prefix##_as_array(const type *t, double result[]); \
+    void prefix##_debug(const type *t); \
+    type prefix##_subtract(const type *t, const type *other); \
+    type prefix##_add(const type *t, const type *other); \
+    type prefix##_multiply(const type *t, const type *other); \
+    void prefix##_i_add(type *t, const type *other); \
+    void prefix##_i_subtract(type *t, const type *other); \
+    void prefix##_i_multiply(type *t, const type *other); \
+    void prefix##_i_divide(type *t, const type *other); \
 
-double vec3_length(Vec3 *v);
+/* ------------------ \\
+||       Point3       ||
+\\ ------------------ */
 
-double vec3_dot(const Vec3 *main, const Vec3 *other);
+DEF_VEC3(double, Point3);
 
-Vec3 vec3_cross(const Vec3 *main, const Vec3 *other);
+DEF_VEC3_METHODS(Point3, point3);
 
-void vec3_debug(const Vec3 *t);
+/* ------------------ \\
+||      RGBColor      ||
+\\ ------------------ */
 
-Vec3 vec3_subtract(const Vec3 *t, const Vec3 *other);
+#define RGB_MAX 255
+#define RGB_MULT (RGB_MAX + 0.999)
 
-Vec3 vec3_add(const Vec3 *t, const Vec3 *other);
+DEF_VEC3(double, RGBColor);
 
-Vec3 vec3_multiply(const Vec3 *t, const Vec3 *other);
+DEF_VEC3_METHODS(RGBColor, rgbcolor);
 
-void vec3_i_add(Vec3 *t, const Vec3 *other);
-
-void vec3_i_subtract(Vec3 *t, const Vec3 *other);
-
-void vec3_i_multiply(Vec3 *t, const Vec3 *other);
-
-void vec3_i_divide(Vec3 *t, const Vec3 *other);
-
-
+void rgbcolor_write(FILE *stream, const RGBColor *t);

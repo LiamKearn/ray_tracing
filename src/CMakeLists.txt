@@ -1,4 +1,3 @@
-# Common
 add_library(ray_tracing)
 
 target_sources(ray_tracing
@@ -14,8 +13,6 @@ target_include_directories(ray_tracing
     )
 
 target_link_libraries(ray_tracing m)
-
-# Out
 
 add_executable(debug)
 
