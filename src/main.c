@@ -11,7 +11,7 @@ int main() {
     // P3 - format
     // width ' ' height - dimensions for wrapping rows into columns
     // 255 - rgb maximum
-    fprintf(stdout, "P3\n%d %d\n255\n", IMAGE_WIDTH, IMAGE_HEIGHT);
+    fprintf(stdout, "P3\n%d %d\n%d\n", IMAGE_WIDTH, IMAGE_HEIGHT, RGB_MAX);
 
     // Output RGB tuples to the file seperated by a newlines, rows ltr and then
     // columns.
