@@ -13,29 +13,29 @@
         fprintf(stderr, "%f-%f-%f\n", t->x, t->y, t->z);                       \
     }                                                                          \
     type prefix##_subtract(const type *t, const type *other) {                 \
-        type result = {0};                                                     \
-                                                                               \
-        result.x = t->x - other->x;                                            \
-        result.y = t->y - other->y;                                            \
-        result.z = t->z - other->z;                                            \
+        type result = {                                                        \
+            t->x - other->x,                                                   \
+            t->y - other->y,                                                   \
+            t->z - other->z,                                                   \
+        };                                                                     \
                                                                                \
         return result;                                                         \
     }                                                                          \
     type prefix##_add(const type *t, const type *other) {                      \
-        type result = {0};                                                     \
-                                                                               \
-        result.x = t->x + other->x;                                            \
-        result.y = t->y + other->y;                                            \
-        result.z = t->z + other->z;                                            \
+        type result = {                                                        \
+            t->x + other->x,                                                   \
+            t->y + other->y,                                                   \
+            t->z + other->z,                                                   \
+        };                                                                     \
                                                                                \
         return result;                                                         \
     }                                                                          \
     type prefix##_multiply(const type *t, const type *other) {                 \
-        type result = {0};                                                     \
-                                                                               \
-        result.x = t->x * other->x;                                            \
-        result.y = t->y * other->y;                                            \
-        result.z = t->z * other->z;                                            \
+        type result = {                                                        \
+            t->x * other->x,                                                   \
+            t->y * other->y,                                                   \
+            t->z * other->z,                                                   \
+        };                                                                     \
                                                                                \
         return result;                                                         \
     }                                                                          \
