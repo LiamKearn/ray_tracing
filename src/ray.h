@@ -2,9 +2,9 @@
 
 typedef struct {
     Point3 origin;
-    Vec3 direction;
+    Point3 direction;
 } Ray;
 
-Point3 ray_at(const Ray *t, const double trav) {
-    return (Point3) {0};
-}
+Point3 ray_at(Ray *t, const double trav);
+
+RGBColor ray_color(const Ray *ray);
