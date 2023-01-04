@@ -3,14 +3,28 @@
 #include <stdio.h>
 
 #define DEF_IMPL_VEC3_METHODS(type, prefix)                                    \
-    double prefix##_length_squared(type *v) {                                  \
+    type prefix##_unit_vector(const type *v) {                                 \
+        /* return v * type_length(v) */                                        \
+        type copy = *v;                                                        \
+        prefix##_op_divide(&copy, prefix##_length(v));                         \
+        return copy;                                                           \
+    }                                                                          \
+    double prefix##_length_squared(const type *v) {                            \
         return (v->x * v->x) + (v->y * v->y) + (v->z * v->z);                  \
     }                                                                          \
     double prefix##_length(const type *v) {                                    \
         return sqrt(prefix##_length_squared(v));                               \
     }                                                                          \
-    void prefix##_debug(const type *t) {                                       \
-        fprintf(stderr, "%f-%f-%f\n", t->x, t->y, t->z);                       \
+    type prefix##_cross(const type *main, const type *other) {                 \
+        type result = {(main->y * other->z) - (main->z * other->y),            \
+                       (main->z * other->x) - (main->x * other->z),            \
+                       (main->x * other->y) - (main->y * other->x)};           \
+                                                                               \
+        return result;                                                         \
+    }                                                                          \
+    double prefix##_dot(const type *main, const type *other) {                 \
+        return (main->x * other->x) + (main->y * other->y) +                   \
+               (main->z * other->z);                                           \
     }                                                                          \
     type prefix##_subtract(const type *t, const type *other) {                 \
         type result = {                                                        \
@@ -59,16 +73,28 @@
         t->y /= other->y;                                                      \
         t->z /= other->z;                                                      \
     }                                                                          \
-    double prefix##_dot(const type *main, const type *other) {                 \
-        return (main->x * other->x) + (main->y * other->y) +                   \
-               (main->z * other->z);                                           \
+    void prefix##_op_add(type *t, double value) {                              \
+        t->x += value;                                                         \
+        t->y += value;                                                         \
+        t->z += value;                                                         \
     }                                                                          \
-    type prefix##_cross(const type *main, const type *other) {                 \
-        type result = {(main->y * other->z) - (main->z * other->y),            \
-                       (main->z * other->x) - (main->x * other->z),            \
-                       (main->x * other->y) - (main->y * other->x)};           \
-                                                                               \
-        return result;                                                         \
+    void prefix##_op_subtract(type *t, double value) {                         \
+        t->x -= value;                                                         \
+        t->y -= value;                                                         \
+        t->z -= value;                                                         \
+    }                                                                          \
+    void prefix##_op_multiply(type *t, double value) {                         \
+        t->x *= value;                                                         \
+        t->y *= value;                                                         \
+        t->z *= value;                                                         \
+    }                                                                          \
+    void prefix##_op_divide(type *t, double value) {                           \
+        t->x /= value;                                                         \
+        t->y /= value;                                                         \
+        t->z /= value;                                                         \
+    }                                                                          \
+    void prefix##_debug(const type *t) {                                       \
+        fprintf(stderr, "%f-%f-%f\n", t->x, t->y, t->z);                       \
     }                                                                          \
     void prefix##_as_array(const type *t, double result[3]) {                  \
         result[0] = t->x;                                                      \

@@ -8,19 +8,24 @@
     } name
 
 #define DEF_VEC3_METHODS(type, prefix)                                         \
-    double prefix##_length_squared(type *v);                                   \
+    type prefix##_unit_vector(const type *v);                                  \
+    double prefix##_length_squared(const type *v);                             \
     double prefix##_length(const type *v);                                     \
     double prefix##_dot(const type *main, const type *other);                  \
     type prefix##_cross(const type *main, const type *other);                  \
-    void prefix##_as_array(const type *t, double result[3]);                   \
-    void prefix##_debug(const type *t);                                        \
     type prefix##_subtract(const type *t, const type *other);                  \
     type prefix##_add(const type *t, const type *other);                       \
     type prefix##_multiply(const type *t, const type *other);                  \
     void prefix##_i_add(type *t, const type *other);                           \
     void prefix##_i_subtract(type *t, const type *other);                      \
     void prefix##_i_multiply(type *t, const type *other);                      \
-    void prefix##_i_divide(type *t, const type *other);
+    void prefix##_i_divide(type *t, const type *other);                        \
+    void prefix##_op_add(type *t, double value);                               \
+    void prefix##_op_subtract(type *t, double value);                          \
+    void prefix##_op_multiply(type *t, double value);                          \
+    void prefix##_op_divide(type *t, double value);                            \
+    void prefix##_debug(const type *t);                                        \
+    void prefix##_as_array(const type *t, double result[3]);
 
 /* ------------------ \\
 ||       Point3       ||
