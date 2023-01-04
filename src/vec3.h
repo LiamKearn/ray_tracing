@@ -9,7 +9,7 @@
 
 #define DEF_VEC3_METHODS(type, prefix)                                         \
     double prefix##_length_squared(type *v);                                   \
-    double prefix##_length(type *v);                                           \
+    double prefix##_length(const type *v);                                     \
     double prefix##_dot(const type *main, const type *other);                  \
     type prefix##_cross(const type *main, const type *other);                  \
     void prefix##_as_array(const type *t, double result[3]);                   \

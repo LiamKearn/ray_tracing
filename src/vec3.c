@@ -6,7 +6,7 @@
     double prefix##_length_squared(type *v) {                                  \
         return (v->x * v->x) + (v->y * v->y) + (v->z * v->z);                  \
     }                                                                          \
-    double prefix##_length(type *v) {                                          \
+    double prefix##_length(const type *v) {                                    \
         return sqrt(prefix##_length_squared(v));                               \
     }                                                                          \
     void prefix##_debug(const type *t) {                                       \
