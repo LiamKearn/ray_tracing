@@ -1,10 +1,10 @@
 #include "ray.h"
 
-Point3 ray_at(Ray *t, const double trav) {
+Point3 ray_extend(Ray *t, const double dist) {
     // origin + (trav * direction);
     Point3 dir = t->direction;
-    point3_op_multiply(&dir, trav);
-    return point3_multiply(&t->origin, &dir);
+    point3_op_multiply(&dir, dist);
+    return point3_cpy_multiply(&t->origin, &dir);
 }
 
 RGBColor ray_color(const Ray *ray) {
@@ -28,5 +28,5 @@ RGBColor ray_color(const Ray *ray) {
     rgbcolor_op_multiply(&color_white, y);
     rgbcolor_op_multiply(&color_blue, t);
 
-    return rgbcolor_add(&color_a, &color_b);
+    return rgbcolor_cpy_add(&color_white, &color_blue);
 }
