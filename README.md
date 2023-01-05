@@ -1,6 +1,6 @@
 # Building
 
-Prepare:
+Configure:
 ```sh
 cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Debug
 ```

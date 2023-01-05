@@ -1,16 +1,15 @@
 #include "ray.h"
-#include <math.h>
-#include <stdio.h>
 #include <stdlib.h>
 
-#define IMAGE_WIDTH 400
+#define IMAGE_WIDTH 200
 
 int main() {
     /* ------------------ \\
     ||       Image        ||
     \\ ------------------ */
+
     const double aspect_ratio = 16.0 / 9.0;
-    const int image_width = 400;
+    const int image_width = 200;
     const int image_height = (int)image_width / aspect_ratio;
 
     /* ------------------ \\
@@ -63,8 +62,8 @@ int main() {
             Point3 vv = point3_cpy_op_multiply(vertical, v);
             Point3 temp = point3_cpy_add(&uh, &vv);
             Point3 far = point3_cpy_add(&lower_left_corner, &temp);
-            Point3 res = point3_cpy_subtract(&far, &origin);
-            Ray r = {origin, res};
+            Point3 dir = point3_cpy_subtract(&far, &origin);
+            Ray r = {origin, dir};
 
             RGBColor pixel = ray_color(&r);
             rgbcolor_write(stdout, &pixel);

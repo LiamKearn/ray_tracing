@@ -18,8 +18,8 @@ TEST(vec3, simple_dot) {
         //            2  7  1
         //            =  =  =
         //            6  21 3
-        //            + -----
-        //            =
+        //            +  +  +
+        //            =  =  =
         ASSERT_EQ(30, point3_dot(&x, &y));
 }
 

@@ -127,7 +127,7 @@
         t->z -= value;                                                         \
     }                                                                          \
     void prefix##_debug(const type *t) {                                       \
-        fprintf(stderr, "%f-%f-%f\n", t->x, t->y, t->z);                       \
+        fprintf(stderr, "%f - %f - %f\n", t->x, t->y, t->z);                   \
     }                                                                          \
     void prefix##_as_array(const type *t, double result[3]) {                  \
         result[0] = t->x;                                                      \
