@@ -26,32 +26,15 @@
         return (main->x * other->x) + (main->y * other->y) +                   \
                (main->z * other->z);                                           \
     }                                                                          \
-    type prefix##_subtract(const type *t, const type *other) {                 \
-        type result = {                                                        \
-            t->x - other->x,                                                   \
-            t->y - other->y,                                                   \
-            t->z - other->z,                                                   \
-        };                                                                     \
-                                                                               \
-        return result;                                                         \
+    void prefix##_i_divide(type *t, const type *other) {                       \
+        t->x /= other->x;                                                      \
+        t->y /= other->y;                                                      \
+        t->z /= other->z;                                                      \
     }                                                                          \
-    type prefix##_add(const type *t, const type *other) {                      \
-        type result = {                                                        \
-            t->x + other->x,                                                   \
-            t->y + other->y,                                                   \
-            t->z + other->z,                                                   \
-        };                                                                     \
-                                                                               \
-        return result;                                                         \
-    }                                                                          \
-    type prefix##_multiply(const type *t, const type *other) {                 \
-        type result = {                                                        \
-            t->x * other->x,                                                   \
-            t->y * other->y,                                                   \
-            t->z * other->z,                                                   \
-        };                                                                     \
-                                                                               \
-        return result;                                                         \
+    void prefix##_i_multiply(type *t, const type *other) {                     \
+        t->x *= other->x;                                                      \
+        t->y *= other->y;                                                      \
+        t->z *= other->z;                                                      \
     }                                                                          \
     void prefix##_i_add(type *t, const type *other) {                          \
         t->x += other->x;                                                      \
@@ -63,15 +46,75 @@
         t->y -= other->y;                                                      \
         t->z -= other->z;                                                      \
     }                                                                          \
-    void prefix##_i_multiply(type *t, const type *other) {                     \
-        t->x *= other->x;                                                      \
-        t->y *= other->y;                                                      \
-        t->z *= other->z;                                                      \
+    type prefix##_cpy_divide(const type *t, const type *other) {               \
+        type result = {                                                        \
+            t->x / other->x,                                                   \
+            t->y / other->y,                                                   \
+            t->z / other->z,                                                   \
+        };                                                                     \
+                                                                               \
+        return result;                                                         \
     }                                                                          \
-    void prefix##_i_divide(type *t, const type *other) {                       \
-        t->x /= other->x;                                                      \
-        t->y /= other->y;                                                      \
-        t->z /= other->z;                                                      \
+    type prefix##_cpy_multiply(const type *t, const type *other) {             \
+        type result = {                                                        \
+            t->x * other->x,                                                   \
+            t->y * other->y,                                                   \
+            t->z * other->z,                                                   \
+        };                                                                     \
+                                                                               \
+        return result;                                                         \
+    }                                                                          \
+    type prefix##_cpy_subtract(const type *t, const type *other) {             \
+        type result = {                                                        \
+            t->x - other->x,                                                   \
+            t->y - other->y,                                                   \
+            t->z - other->z,                                                   \
+        };                                                                     \
+                                                                               \
+        return result;                                                         \
+    }                                                                          \
+    type prefix##_cpy_add(const type *t, const type *other) {                  \
+        type result = {                                                        \
+            t->x + other->x,                                                   \
+            t->y + other->y,                                                   \
+            t->z + other->z,                                                   \
+        };                                                                     \
+                                                                               \
+        return result;                                                         \
+    }                                                                          \
+    type prefix##_cpy_op_divide(type t, double value) {                        \
+        t.x /= value;                                                          \
+        t.y /= value;                                                          \
+        t.z /= value;                                                          \
+        return t;                                                              \
+    }                                                                          \
+    type prefix##_cpy_op_multiply(type t, double value) {                      \
+        t.x *= value;                                                          \
+        t.y *= value;                                                          \
+        t.z *= value;                                                          \
+        return t;                                                              \
+    }                                                                          \
+    type prefix##_cpy_op_add(type t, double value) {                           \
+        t.x += value;                                                          \
+        t.y += value;                                                          \
+        t.z += value;                                                          \
+        return t;                                                              \
+    }                                                                          \
+    type prefix##_cpy_op_subtract(type t, double value) {                      \
+        t.x -= value;                                                          \
+        t.y -= value;                                                          \
+        t.z -= value;                                                          \
+        return t;                                                              \
+    }                                                                          \
+    void prefix##_op_divide(type *t, double value) {                           \
+        t->x /= value;                                                         \
+        t->y /= value;                                                         \
+        t->z /= value;                                                         \
+    }                                                                          \
+    void prefix##_op_multiply(type *t, double value) {                         \
+        t->x *= value;                                                         \
+        t->y *= value;                                                         \
+        t->z *= value;                                                         \
     }                                                                          \
     void prefix##_op_add(type *t, double value) {                              \
         t->x += value;                                                         \
@@ -82,16 +125,6 @@
         t->x -= value;                                                         \
         t->y -= value;                                                         \
         t->z -= value;                                                         \
-    }                                                                          \
-    void prefix##_op_multiply(type *t, double value) {                         \
-        t->x *= value;                                                         \
-        t->y *= value;                                                         \
-        t->z *= value;                                                         \
-    }                                                                          \
-    void prefix##_op_divide(type *t, double value) {                           \
-        t->x /= value;                                                         \
-        t->y /= value;                                                         \
-        t->z /= value;                                                         \
     }                                                                          \
     void prefix##_debug(const type *t) {                                       \
         fprintf(stderr, "%f-%f-%f\n", t->x, t->y, t->z);                       \
