@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     Point3 origin;
@@ -11,7 +12,7 @@ typedef struct {
 double insection_with_sphere(const Ray *ray, const Point3 *center,
                              double radius);
 
-Point3 ray_extend(const Ray *t, const double trav);
+Point3 ray_extend(const Ray *t, double trav);
 
 RGBColor ray_color(const Ray *ray);
 

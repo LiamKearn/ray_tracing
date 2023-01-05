@@ -1,4 +1,6 @@
 #include "ray.h"
+#include <assert.h>
+#include <float.h>
 
 double insection_with_sphere(const Ray *ray, const Point3 *center,
                              double radius) {
@@ -15,15 +17,6 @@ double insection_with_sphere(const Ray *ray, const Point3 *center,
 }
 
 RGBColor ray_color(const Ray *ray) {
-    /*
-    CPP REF impl:
-    ```
-    vec3 unit_direction = unit_vector(r.direction());
-    auto t = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
-    ```
-    */
-
     Point3 center = {0, 0, -1};
     double t = insection_with_sphere(ray, &center, 0.5);
     if (t > 0.0) {
@@ -32,7 +25,9 @@ RGBColor ray_color(const Ray *ray) {
         Point3 far_a = point3_cpy_subtract(&z, &subtract);
         Point3 norm = point3_unit_vector(&far_a);
         RGBColor o = *((RGBColor *)&norm);
+        assert(fabs(norm.x - o.x) < DBL_EPSILON);
         rgbcolor_op_add(&o, 1);
+        rgbcolor_op_multiply(&o, 0.5);
         return o;
     }
 
@@ -50,7 +45,7 @@ RGBColor ray_color(const Ray *ray) {
     return rgbcolor_cpy_add(&color_white, &color_blue);
 }
 
-Point3 ray_extend(const Ray *t, const double dist) {
+Point3 ray_extend(const Ray *t, double dist) {
     // origin + (dist * direction);
     Point3 dir = t->direction;
     point3_op_multiply(&dir, dist);

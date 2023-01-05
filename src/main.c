@@ -1,7 +1,6 @@
 #include "ray.h"
-#include <stdlib.h>
 
-#define IMAGE_WIDTH 200
+#define IMAGE_WIDTH 800
 
 int main() {
     /* ------------------ \\
@@ -9,7 +8,7 @@ int main() {
     \\ ------------------ */
 
     const double aspect_ratio = 16.0 / 9.0;
-    const int image_width = 200;
+    const int image_width = 800;
     const int image_height = (int)image_width / aspect_ratio;
 
     /* ------------------ \\
@@ -49,8 +48,8 @@ int main() {
     // Output RGB tuples to the file seperated by a newlines, rows ltr and then
     // columns.
     for (int j = image_height - 1; j >= 0; --j) {
-        fprintf(stderr, "\rScanlines remaining: %d ", j);
-        fflush(stderr);
+        // fprintf(stderr, "\rScanlines remaining: %d ", j);
+        // fflush(stderr);
 
 #pragma unroll(IMAGE_WIDTH / 16)
         for (int i = 0; i < image_width; ++i) {
