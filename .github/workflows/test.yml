@@ -13,5 +13,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Configure
       run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
+    - name: Build
+      run: cmake --build build --config Release --target unit_tests
     - name: Run Tests
       run: cd build && ctest -C Release --output-on-failure --verbose
