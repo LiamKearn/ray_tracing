@@ -1,10 +1,11 @@
 #include "vec3.h"
-#include <math.h>
-#include <stdio.h>
+
+#ifndef RT_VEC3_H
+#define RT_VEC3_H
 
 #define DEF_IMPL_VEC3_METHODS(type, prefix)                                    \
     type prefix##_unit_vector(const type *v) {                                 \
-        /* return v * type_length(v) */                                        \
+        /* return v * prefix##_length(v) */                                    \
         type copy = *v;                                                        \
         prefix##_op_divide(&copy, prefix##_length(v));                         \
         return copy;                                                           \
@@ -160,3 +161,5 @@ void rgbcolor_write(FILE *stream, const RGBColor *t) {
 \\ ------------------ */
 
 DEF_IMPL_VEC3_METHODS(Vec3, vec3);
+
+#endif

@@ -4,9 +4,13 @@ target_sources(ray_tracing
     PRIVATE
     vec3.c
     ray.c
+    hittable.c
+    sphere.c
     PUBLIC
     vec3.h
     ray.h
+    hittable.h
+    sphere.h
     )
 
 target_include_directories(ray_tracing
@@ -23,6 +27,8 @@ target_sources(debug
     main.c
     vec3.c
     ray.c
+    hittable.c
+    sphere.c
     )
 
 target_link_libraries(debug m)

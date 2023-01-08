@@ -1,8 +1,21 @@
-#include "ray.h"
+#include "sphere.h"
 
 #define IMAGE_WIDTH 800
 
+void test(void) {
+    Ray r = {{}, {}};
+    HitRecord hr = {{.y = 4}, {}, 1.0};
+    Point3 center = {.z = 39.4, .x = 3.0};
+    Hittable *x = new_sphere(center, 1.4);
+    void *y = x->data;
+    x->hit(&r, 1.0, 1.0, &hr, y);
+
+    hittable_free(x);
+}
+
 int main() {
+    test();
+    return 0;
     /* ------------------ \\
     ||       Image        ||
     \\ ------------------ */
@@ -19,9 +32,9 @@ int main() {
     double viewport_width = aspect_ratio * viewport_height;
     double focal_length = 1.0;
 
-    Point3 origin = {0, 0, 0};
-    Point3 horizontal = {viewport_width, 0, 0};
-    Point3 vertical = {0, viewport_height, 0};
+    Point3 origin = {};
+    Point3 horizontal = {.x = viewport_width};
+    Point3 vertical = {.y = viewport_height};
 
     // auto lower_left_corner = origin - horizontal/2 - vertical/2 - vec3(0, 0,
     // focal_length);

@@ -1,11 +1,22 @@
+#include <assert.h>
+#include <float.h>
+#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#ifndef RT_VEC3_H
+#define RT_VEC3_H
+
+#define VEC3_DEBUG(vec3)                                                       \
+    fprintf(stderr, "%s: %f - %f - %f\n", #vec3, vec3.x, vec3.y, vec3.z);
+
+#define FLO_DEBUG(var) fprintf(stderr, "%s: %f\n", #var, var);
 
 #define DEF_VEC3(type, name)                                                   \
     typedef struct {                                                           \
-        type x;                                                                \
-        type y;                                                                \
-        type z;                                                                \
-    } name
+        type x, y, z;                                                          \
+    } name;
 
 #define DEF_VEC3_METHODS(type, prefix)                                         \
     type prefix##_unit_vector(const type *v);                                  \
@@ -60,3 +71,5 @@ void rgbcolor_write(FILE *stream, const RGBColor *t);
 DEF_VEC3(double, Vec3);
 
 DEF_VEC3_METHODS(Vec3, vec3);
+
+#endif

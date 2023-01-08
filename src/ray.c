@@ -1,34 +1,38 @@
 #include "ray.h"
-#include <assert.h>
-#include <float.h>
 
-double insection_with_sphere(const Ray *ray, const Point3 *center,
-                             double radius) {
+double intersection_with_sphere(const Ray *ray, const Point3 *center,
+                                double radius) {
     Point3 oc = point3_cpy_subtract(&ray->origin, center);
-    double a = point3_dot(&ray->direction, &ray->direction);
-    double b = 2.0 * point3_dot(&oc, &ray->direction);
-    double c = point3_dot(&oc, &oc) - (radius * radius);
-    double discriminant = (b * b) - 4 * a * c;
+    double a = point3_length_squared(&ray->direction);
+    double half_b = point3_dot(&oc, &ray->direction);
+    double c = point3_length_squared(&oc) - (radius * radius);
+    double discriminant = (half_b * half_b) - a * c;
     if (discriminant < 0.0) {
         return -1.0;
     } else {
-        return ((-b - sqrt(discriminant)) / (2.0 * a));
+        return (-half_b - sqrt(discriminant)) / a;
     }
 }
 
 RGBColor ray_color(const Ray *ray) {
-    Point3 center = {0, 0, -1};
-    double t = insection_with_sphere(ray, &center, 0.5);
+    Point3 sphere_center = {.z = -1};
+    double sphere_radius = 0.5;
+
+    double t = intersection_with_sphere(ray, &sphere_center, sphere_radius);
     if (t > 0.0) {
-        Point3 subtract = {0, 0, -1};
-        Point3 z = ray_extend(ray, t);
-        Point3 far_a = point3_cpy_subtract(&z, &subtract);
-        Point3 norm = point3_unit_vector(&far_a);
-        RGBColor o = *((RGBColor *)&norm);
-        assert(fabs(norm.x - o.x) < DBL_EPSILON);
-        rgbcolor_op_add(&o, 1);
-        rgbcolor_op_multiply(&o, 0.5);
-        return o;
+        Point3 hit_point = ray_extend(ray, t);
+        Point3 outward_normal = point3_cpy_subtract(&hit_point, &sphere_center);
+        Point3 normal = point3_unit_vector(&outward_normal);
+
+        RGBColor normal_shade = *((RGBColor *)&normal);
+        assert(fabs(normal.x - normal_shade.x) < DBL_EPSILON);
+        assert(fabs(normal.y - normal_shade.y) < DBL_EPSILON);
+        assert(fabs(normal.z - normal_shade.z) < DBL_EPSILON);
+
+        rgbcolor_op_add(&normal_shade, 1);
+        rgbcolor_op_multiply(&normal_shade, 0.5);
+
+        return normal_shade;
     }
 
     RGBColor color_white = {1.0, 1.0, 1.0};
