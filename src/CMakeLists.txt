@@ -1,35 +1,18 @@
-add_library(ray_tracing)
+add_executable(renderer)
 
-target_sources(ray_tracing
+target_include_directories(renderer
     PRIVATE
-    vec3.c
-    ray.c
-    hittable.c
-    sphere.c
-    PUBLIC
-    vec3.h
-    ray.h
-    hittable.h
-    sphere.h
-    )
-
-target_include_directories(ray_tracing
-    PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
     )
 
-target_link_libraries(ray_tracing m)
-
-add_executable(debug)
-
-target_sources(debug
+target_sources(renderer
     PRIVATE
-    main.c
-    vec3.c
     ray.c
     hittable.c
     sphere.c
+    cube.c
+    main.c
     )
 
-target_link_libraries(debug m)
+target_link_libraries(renderer m vec3 debug_utils)
 

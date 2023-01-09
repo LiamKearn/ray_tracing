@@ -1,7 +1,10 @@
-#include "vec3.h"
+#pragma once
 
-#ifndef RT_RAY_H
-#define RT_RAY_H
+#include <assert.h>
+#include <float.h>
+#include <stdio.h>
+#include <math.h>
+#include "vec3_defs.h"
 
 typedef struct {
     Point3 origin;
@@ -16,5 +19,3 @@ Point3 ray_extend(const Ray *t, double trav);
 RGBColor ray_color(const Ray *ray);
 
 void ray_write(FILE *stream, const Ray *r);
-
-#endif

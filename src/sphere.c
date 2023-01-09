@@ -1,9 +1,9 @@
 #include "sphere.h"
 
-bool sphere_hit(const Ray *ray, double t_min, double t_max,
-                const HitRecord *record, void *data) {
+bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
+                const HitRecord *record) {
     SphereData *x = (SphereData *)data;
-    FLO_DEBUG(x->radius);
+    DEBUG(x->radius);
     VEC3_DEBUG(x->center);
     return true;
 }

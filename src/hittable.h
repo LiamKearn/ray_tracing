@@ -1,7 +1,9 @@
-#include "ray.h"
+#pragma once
 
-#ifndef RT_HITTABLE_H
-#define RT_HITTABLE_H
+#include <stdlib.h>
+#include <stdbool.h>
+#include "ray.h"
+#include "vec3_defs.h"
 
 typedef struct {
     Point3 p;
@@ -10,11 +12,9 @@ typedef struct {
 } HitRecord;
 
 typedef struct {
-    bool (*hit)(const Ray *ray, double t_min, double t_max,
-                const HitRecord *record, void *data);
+    bool (*hit)(void *data, const Ray *ray, double t_min, double t_max,
+                const HitRecord *record);
     void *data;
 } Hittable;
 
 void hittable_free(Hittable *h);
-
-#endif

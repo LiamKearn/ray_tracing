@@ -1,16 +1,15 @@
-#include "hittable.h"
+#pragma once
 
-#ifndef RT_SPHERE_H
-#define RT_SPHERE_H
+#include "hittable.h"
+#include "debug_utils.h"
+#include "vec3_defs.h"
 
 typedef struct {
     double radius;
     Point3 center;
 } SphereData;
 
-bool sphere_hit(const Ray *ray, double t_min, double t_max,
-                const HitRecord *record, void *data);
+bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
+                const HitRecord *record);
 
 Hittable *new_sphere(Point3 center, double radius);
-
-#endif

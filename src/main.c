@@ -1,20 +1,43 @@
 #include "sphere.h"
+#include "cube.h"
+#include "vec3_defs.h"
 
 #define IMAGE_WIDTH 800
 
-void test(void) {
+void rgbcolor_write(FILE *stream, const RGBColor *t) {
+    int x = RGB_MULT * t->x;
+    int y = RGB_MULT * t->y;
+    int z = RGB_MULT * t->z;
+
+    fprintf(stream, "%d %d %d\n", x, y, z);
+}
+
+void test_sphere(void) {
     Ray r = {{}, {}};
     HitRecord hr = {{.y = 4}, {}, 1.0};
     Point3 center = {.z = 39.4, .x = 3.0};
     Hittable *x = new_sphere(center, 1.4);
     void *y = x->data;
-    x->hit(&r, 1.0, 1.0, &hr, y);
+    x->hit(y, &r, 1.0, 1.0, &hr);
+
+    hittable_free(x);
+}
+
+void test_cube(void) {
+    Ray r = {{}, {}};
+    HitRecord hr = {{.y = 4}, {}, 1.0};
+    Point3 a = {.z = 39.4, .x = 101.0};
+    Point3 b = {.z = .4, .x = 8};
+    Hittable *x = new_cube(a, b);
+    void *y = x->data;
+    x->hit(y, &r, 1.0, 1.0, &hr);
 
     hittable_free(x);
 }
 
 int main() {
-    test();
+    test_sphere();
+    test_cube();
     return 0;
     /* ------------------ \\
     ||       Image        ||
@@ -41,12 +64,12 @@ int main() {
     Point3 lower_left_corner = origin;
     Point3 h = horizontal;
     Point3 v = vertical;
-    point3_op_divide(&h, 2);
-    point3_op_divide(&v, 2);
-    point3_i_subtract(&lower_left_corner, &h);
-    point3_i_subtract(&lower_left_corner, &v);
+    Point3_op_divide(&h, 2);
+    Point3_op_divide(&v, 2);
+    Point3_i_subtract(&lower_left_corner, &h);
+    Point3_i_subtract(&lower_left_corner, &v);
     Point3 x = {0, 0, focal_length};
-    point3_i_subtract(&lower_left_corner, &x);
+    Point3_i_subtract(&lower_left_corner, &x);
 
     /* ------------------ \\
     ||       Render       ||
@@ -70,11 +93,11 @@ int main() {
             double v = ((double)j) / (image_height - 1);
 
             // res = lower_left_corner + u*horizontal + v*vertical - origin
-            Point3 uh = point3_cpy_op_multiply(horizontal, u);
-            Point3 vv = point3_cpy_op_multiply(vertical, v);
-            Point3 temp = point3_cpy_add(&uh, &vv);
-            Point3 far = point3_cpy_add(&lower_left_corner, &temp);
-            Point3 dir = point3_cpy_subtract(&far, &origin);
+            Point3 uh = Point3_cpy_op_multiply(horizontal, u);
+            Point3 vv = Point3_cpy_op_multiply(vertical, v);
+            Point3 temp = Point3_cpy_add(&uh, &vv);
+            Point3 far = Point3_cpy_add(&lower_left_corner, &temp);
+            Point3 dir = Point3_cpy_subtract(&far, &origin);
             Ray r = {origin, dir};
 
             RGBColor pixel = ray_color(&r);

@@ -27,7 +27,7 @@ TEST(ray, simple_extend) {
 
         Point3 result = ray_extend(&init, 1);
         double result_arr[3] = {0};
-        point3_as_array(&result, result_arr);
+        Point3_as_array(&result, result_arr);
 
         ASSERT_THAT(result_arr, ElementsAre(2, 4, 6));
 }
