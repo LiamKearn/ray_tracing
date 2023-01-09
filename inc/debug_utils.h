@@ -10,7 +10,7 @@
     default: "Can't print: %s\n")
 // clang-format on
 
-#define DEBUG(var) fprintf(stderr, FMT_STR(var), #var, var)
+#define SCALAR_DEBUG(var) fprintf(stderr, FMT_STR(var), #var, var)
 
 // clang-format off
 #define FMT_STR3(type) _Generic((type), \

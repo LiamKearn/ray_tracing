@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include "../src/vec3_impls.h"
+#include "../src/vec3_defs.h"
 }
 
 using ::testing::DoubleNear;

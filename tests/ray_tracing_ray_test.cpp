@@ -3,6 +3,7 @@
 
 extern "C" {
 #include "../src/ray.h"
+#include "../src/vec3_defs.h"
 }
 
 using ::testing::DoubleNear;
@@ -49,7 +50,7 @@ TEST(ray, complex_extend) {
 
         Point3 result = ray_extend(&init, 12.4);
         double result_arr[3] = {0};
-        point3_as_array(&result, result_arr);
+        Point3_as_array(&result, result_arr);
 
         ASSERT_THAT(result_arr, ElementsAre(DoubleNear(442.33, fault_tol),
                                             DoubleNear(306.1, fault_tol),

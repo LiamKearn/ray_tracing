@@ -3,7 +3,7 @@
 bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
                 const HitRecord *record) {
     SphereData *x = (SphereData *)data;
-    DEBUG(x->radius);
+    SCALAR_DEBUG(x->radius);
     VEC3_DEBUG(x->center);
     return true;
 }

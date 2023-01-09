@@ -15,7 +15,8 @@ add_executable(
 
 target_link_libraries(unit_tests
     PRIVATE
-    ray_tracing
+    vec3
+    engine
     gtest_main
     gmock
     )
