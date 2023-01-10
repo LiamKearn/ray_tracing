@@ -1,38 +1,25 @@
 #include "cube.h"
+#include "hittable_aggregate.h"
 #include "sphere.h"
 #include "vec3_defs.h"
 
 #define IMAGE_WIDTH 800
 
+void test(void) {
+    Hittable *h1 = new_sphere((Point3){.y = 44.1111}, 931813);
+    Hittable *h2 = new_sphere((Point3){.x = 4.28301, .z = 3813.3}, 2);
 
+    HittableAggregate* ha = new_hittable_aggregate();
+    HITTABLE_AGGREGATE_PUSH(ha, *h1);
+    HITTABLE_AGGREGATE_PUSH(ha, *h2);
 
-void test_sphere(void) {
-    Ray r = {{}, {}};
-    HitRecord hr = {{.y = 4}, {}, 1.0};
-    Point3 center = {.z = 39.4, .x = 3.0};
-    Hittable *x = new_sphere(center, 1.4);
-    void *y = x->data;
-    x->hit(y, &r, 1.0, 1.0, &hr);
+    Hittable *h = hittable_aggregate_to_hittable(ha);
 
-    hittable_free(x);
-}
-
-void test_cube(void) {
-    Ray r = {{}, {}};
-    HitRecord hr = {{.y = 4}, {}, 1.0};
-    Point3 a = {.z = 39.4, .x = 101.0};
-    Point3 b = {.z = .4, .x = 8};
-    Hittable *x = new_cube(a, b);
-    void *y = x->data;
-    x->hit(y, &r, 1.0, 1.0, &hr);
-
-    hittable_free(x);
+    hittable_aggregate_free(ha);
 }
 
 int main() {
-    test_sphere();
-    test_cube();
-    return 0;
+    test();
     /* ------------------ \\
     ||       Image        ||
     \\ ------------------ */
