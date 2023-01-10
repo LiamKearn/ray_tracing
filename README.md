@@ -12,6 +12,6 @@ cmake --build build --config Debug
 
 Test:
 ```sh
-cd build && ctest -C Debug --output-on-failure --verbose
+pushd build && ctest -C Debug --output-on-failure --verbose && popd
 ```
 
