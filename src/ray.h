@@ -1,10 +1,10 @@
 #pragma once
 
+#include "vec3_defs.h"
 #include <assert.h>
 #include <float.h>
-#include <stdio.h>
 #include <math.h>
-#include "vec3_defs.h"
+#include <stdio.h>
 
 typedef struct {
     Point3 origin;

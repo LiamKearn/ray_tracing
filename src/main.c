@@ -1,5 +1,5 @@
-#include "sphere.h"
 #include "cube.h"
+#include "sphere.h"
 #include "vec3_defs.h"
 
 #define IMAGE_WIDTH 800

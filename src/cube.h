@@ -1,7 +1,7 @@
 #pragma once
 
-#include "hittable.h"
 #include "debug_utils.h"
+#include "hittable.h"
 #include "vec3_defs.h"
 
 typedef struct {
