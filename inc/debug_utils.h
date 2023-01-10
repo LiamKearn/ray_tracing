@@ -7,6 +7,7 @@
     double: "%s: %f\n", \
     char: "%s: %c\n", \
     char*: "%s: %s\n", \
+    bool: "%s: %d\n", \
     default: "Can't print: %s\n")
 // clang-format on
 
@@ -19,6 +20,7 @@
     double: "%s: %f - %f - %f\n", \
     char: "%s: %c - %c - %c\n", \
     char*: "%s: %s - %s - %s\n", \
+    bool: "%s: %d\n", \
     default: "Can't print: %s\n")
 // clang-format on
 
