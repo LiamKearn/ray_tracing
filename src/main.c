@@ -4,13 +4,7 @@
 
 #define IMAGE_WIDTH 800
 
-void rgbcolor_write(FILE *stream, const RGBColor *t) {
-    int x = RGB_MULT * t->x;
-    int y = RGB_MULT * t->y;
-    int z = RGB_MULT * t->z;
 
-    fprintf(stream, "%d %d %d\n", x, y, z);
-}
 
 void test_sphere(void) {
     Ray r = {{}, {}};
