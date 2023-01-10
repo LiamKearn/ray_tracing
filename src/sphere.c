@@ -1,13 +1,5 @@
 #include "sphere.h"
 
-bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
-                const HitRecord *record) {
-    SphereData *x = (SphereData *)data;
-    SCALAR_DEBUG(x->radius);
-    VEC3_DEBUG(x->center);
-    return true;
-}
-
 Hittable *new_sphere(Point3 center, double radius) {
     SphereData *data = malloc(sizeof(SphereData));
 
@@ -20,4 +12,35 @@ Hittable *new_sphere(Point3 center, double radius) {
     h->hit = &sphere_hit;
 
     return h;
+}
+
+bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
+                HitRecord *record) {
+    SphereData *s = (SphereData *)data;
+
+    Point3 oc = Point3_subtract(&ray->origin, &s->center);
+    double a = Point3_length_squared(&ray->direction);
+    double half_b = Point3_dot(&oc, &ray->direction);
+    double c = Point3_length_squared(&oc) - (s->radius * s->radius);
+    double discriminant = (half_b * half_b) - a * c;
+
+    if (discriminant < 0.0) {
+        return false;
+    }
+
+    double sqrt_discrim = sqrt(discriminant);
+    double root = (-half_b - sqrt_discrim) / a;
+    if (root < t_min || t_max < root) {
+        root = (-half_b + sqrt_discrim) / a;
+        if (root < t_min || t_max < root) {
+            return false;
+        }
+    }
+
+    Point3 hit_loc = ray_extend(ray, root);
+    record->dist = root;
+    record->p = hit_loc;
+    record->normal = Point3_subtract(&ray->direction, &hit_loc);
+
+    return true;
 }

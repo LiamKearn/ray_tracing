@@ -38,8 +38,7 @@ int main() {
     \\ ------------------ */
 
     const double aspect_ratio = 16.0 / 9.0;
-    const int image_width = 800;
-    const int image_height = (int)image_width / aspect_ratio;
+    const int image_height = IMAGE_WIDTH / aspect_ratio;
 
     /* ------------------ \\
     ||       Camera       ||
@@ -73,25 +72,25 @@ int main() {
     // P3 - format
     // width ' ' height - dimensions for wrapping rows into columns
     // 255 - rgb maximum
-    fprintf(stdout, "P3\n%d %d\n%d\n", image_width, image_height, RGB_MAX);
+    fprintf(stdout, "P3\n%d %d\n%d\n", IMAGE_WIDTH, image_height, RGB_MAX);
 
     // Output RGB tuples to the file seperated by a newlines, rows ltr and then
     // columns.
     for (int j = image_height - 1; j >= 0; --j) {
-        // fprintf(stderr, "\rScanlines remaining: %d ", j);
-        // fflush(stderr);
+        fprintf(stderr, "\rScanlines remaining: %d ", j);
+        fflush(stderr);
 
 #pragma unroll(IMAGE_WIDTH / 16)
-        for (int i = 0; i < image_width; ++i) {
-            double u = ((double)i) / (image_width - 1);
+        for (int i = 0; i < IMAGE_WIDTH; ++i) {
+            double u = ((double)i) / (IMAGE_WIDTH - 1);
             double v = ((double)j) / (image_height - 1);
 
             // res = lower_left_corner + u*horizontal + v*vertical - origin
             Point3 uh = Point3_cpy_op_multiply(horizontal, u);
             Point3 vv = Point3_cpy_op_multiply(vertical, v);
-            Point3 temp = Point3_cpy_add(&uh, &vv);
-            Point3 far = Point3_cpy_add(&lower_left_corner, &temp);
-            Point3 dir = Point3_cpy_subtract(&far, &origin);
+            Point3 temp = Point3_add(&uh, &vv);
+            Point3 far = Point3_add(&lower_left_corner, &temp);
+            Point3 dir = Point3_subtract(&far, &origin);
             Ray r = {origin, dir};
 
             RGBColor pixel = ray_color(&r);

@@ -1,10 +1,8 @@
 #include "cube.h"
 
 bool cube_hit(void *data, const Ray *ray, double t_min, double t_max,
-                const HitRecord *record) {
+              HitRecord *record) {
     CubeData *x = (CubeData *)data;
-    VEC3_DEBUG(x->a);
-    VEC3_DEBUG(x->b);
     return true;
 }
 

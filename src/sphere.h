@@ -1,7 +1,7 @@
 #pragma once
 
-#include "hittable.h"
 #include "debug_utils.h"
+#include "hittable.h"
 #include "vec3_defs.h"
 
 typedef struct {
@@ -10,6 +10,6 @@ typedef struct {
 } SphereData;
 
 bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
-                const HitRecord *record);
+                HitRecord *record);
 
 Hittable *new_sphere(Point3 center, double radius);

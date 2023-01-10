@@ -10,6 +10,6 @@ typedef struct {
 } CubeData;
 
 bool cube_hit(void *data, const Ray *ray, double t_min, double t_max,
-                const HitRecord *record);
+              HitRecord *record);
 
 Hittable *new_cube(Point3 a, Point3 b);

@@ -65,7 +65,7 @@ static inline void JOIN(ALIAS, i_subtract)(ALIAS *t, const ALIAS *other) {
     t->z -= other->z;
 }
 
-static inline ALIAS JOIN(ALIAS, cpy_divide)(const ALIAS *t, const ALIAS *other) {
+static inline ALIAS JOIN(ALIAS, divide)(const ALIAS *t, const ALIAS *other) {
     ALIAS result = {
         t->x / other->x,
         t->y / other->y,
@@ -75,7 +75,7 @@ static inline ALIAS JOIN(ALIAS, cpy_divide)(const ALIAS *t, const ALIAS *other) 
     return result;
 }
 
-static inline ALIAS JOIN(ALIAS, cpy_multiply)(const ALIAS *t, const ALIAS *other) {
+static inline ALIAS JOIN(ALIAS, multiply)(const ALIAS *t, const ALIAS *other) {
     ALIAS result = {
         t->x * other->x,
         t->y * other->y,
@@ -85,7 +85,7 @@ static inline ALIAS JOIN(ALIAS, cpy_multiply)(const ALIAS *t, const ALIAS *other
     return result;
 }
 
-static inline ALIAS JOIN(ALIAS, cpy_subtract)(const ALIAS *t, const ALIAS *other) {
+static inline ALIAS JOIN(ALIAS, subtract)(const ALIAS *t, const ALIAS *other) {
     ALIAS result = {
         t->x - other->x,
         t->y - other->y,
@@ -95,7 +95,7 @@ static inline ALIAS JOIN(ALIAS, cpy_subtract)(const ALIAS *t, const ALIAS *other
     return result;
 }
 
-static inline ALIAS JOIN(ALIAS, cpy_add)(const ALIAS *t, const ALIAS *other) {
+static inline ALIAS JOIN(ALIAS, add)(const ALIAS *t, const ALIAS *other) {
     ALIAS result = {
         t->x + other->x,
         t->y + other->y,
