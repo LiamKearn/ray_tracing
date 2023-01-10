@@ -17,11 +17,6 @@ target_link_libraries(engine vec3 debug_utils m)
 
 add_executable(renderer)
 
-target_include_directories(renderer
-    PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}
-    )
-
 target_sources(renderer
     PRIVATE
     main.c
