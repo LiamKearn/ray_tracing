@@ -8,6 +8,7 @@ target_sources(engine
     hittable_aggregate.c
     sphere.c
     cube.c
+    camera.c
     )
 
 target_include_directories(engine
