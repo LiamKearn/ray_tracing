@@ -1,10 +1,13 @@
+#include "camera.h"
 #include "cube.h"
 #include "hittable_aggregate.h"
 #include "math_util.h"
 #include "sphere.h"
 #include "vec3_defs.h"
+#include <stdlib.h>
 
 #define IMAGE_WIDTH 800
+#define SAMPLES_PER_PIXEL 500
 
 Point3 world_ray_color(const Ray *ray, const HittableAggregate *world) {
     HitRecord record;
@@ -48,25 +51,7 @@ int main() {
     ||       Camera       ||
     \\ ------------------ */
 
-    double viewport_height = 2.0;
-    double viewport_width = aspect_ratio * viewport_height;
-    double focal_length = 1.0;
-
-    Point3 origin = {};
-    Point3 horizontal = {.x = viewport_width};
-    Point3 vertical = {.y = viewport_height};
-
-    // auto lower_left_corner = origin - horizontal/2 - vertical/2 - vec3(0, 0,
-    // focal_length);
-    Point3 lower_left_corner = origin;
-    Point3 h = horizontal;
-    Point3 v = vertical;
-    Point3_op_divide(&h, 2);
-    Point3_op_divide(&v, 2);
-    Point3_i_subtract(&lower_left_corner, &h);
-    Point3_i_subtract(&lower_left_corner, &v);
-    Point3 x = {0, 0, focal_length};
-    Point3_i_subtract(&lower_left_corner, &x);
+    Camera camera = new_camera(16.0 / 9.0, 2.0, 1.0);
 
     /* ------------------ \\
     ||       Render       ||
@@ -86,21 +71,20 @@ int main() {
 
 #pragma unroll(IMAGE_WIDTH / 16)
         for (int i = 0; i < IMAGE_WIDTH; ++i) {
-            double u = ((double)i) / (IMAGE_WIDTH - 1);
-            double v = ((double)j) / (image_height - 1);
+            RGBColor color = {};
+            for (int s = 0; s < SAMPLES_PER_PIXEL; ++s) {
+                double u = ((double)i + rand_double()) / (IMAGE_WIDTH - 1);
+                double v = ((double)j + rand_double()) / (image_height - 1);
 
-            // res = lower_left_corner + u*horizontal + v*vertical - origin
-            Point3 uh = Point3_cpy_op_multiply(horizontal, u);
-            Point3 vv = Point3_cpy_op_multiply(vertical, v);
-            Point3 temp = Point3_add(&uh, &vv);
-            Point3 far = Point3_add(&lower_left_corner, &temp);
-            Point3 dir = Point3_subtract(&far, &origin);
-            Ray r = {origin, dir};
+                Ray r =
+                    camera_ray_for_vertical_horizontal_offsets(&camera, u, v);
 
-            Point3 temp_pixel = world_ray_color(&r, world);
-            RGBColor pixel = *(RGBColor*) &temp_pixel;
-            // RGBColor pixel = ray_color(&r);
-            rgbcolor_write(stdout, &pixel);
+                Point3 temp_pixel = world_ray_color(&r, world);
+                RGBColor pixel = *(RGBColor *)&temp_pixel;
+
+                RGBColor_i_add(&color, &pixel);
+            }
+            rgbcolor_write(stdout, &color, SAMPLES_PER_PIXEL);
         }
     }
 }

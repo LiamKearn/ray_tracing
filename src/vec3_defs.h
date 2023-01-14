@@ -1,5 +1,6 @@
 #pragma once
 
+#include "math_util.h"
 #include <stdio.h>
 
 #define RGB_MAX 255
@@ -14,10 +15,15 @@
 #define T double
 #include "vec3.h"
 
-static inline void rgbcolor_write(FILE *stream, const RGBColor *t) {
-    int x = RGB_MULT * t->x;
-    int y = RGB_MULT * t->y;
-    int z = RGB_MULT * t->z;
+static inline void rgbcolor_write(FILE *stream, const RGBColor *t,
+                                  int samples_per_pixel) {
+    double scale = 1.0 / samples_per_pixel;
 
-    fprintf(stream, "%d %d %d\n", x, y, z);
+    RGBColor a = RGBColor_cpy_op_multiply(t, scale);
+
+    int red = 256 * clamp(a.x, 0.0, 0.999);
+    int green = 256 * clamp(a.y, 0.0, 0.999);
+    int blue = 256 * clamp(a.z, 0.0, 0.999);
+
+    fprintf(stream, "%d %d %d\n", red, green, blue);
 }
