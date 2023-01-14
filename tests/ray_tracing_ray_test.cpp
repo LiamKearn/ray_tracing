@@ -27,7 +27,7 @@ TEST(ray, simple_extend) {
         // 2 4 6
 
         Point3 result = ray_extend(&init, 1);
-        double result_arr[3] = {0};
+        double result_arr[3] = {};
         Point3_as_array(&result, result_arr);
 
         ASSERT_THAT(result_arr, ElementsAre(2, 4, 6));
@@ -49,7 +49,7 @@ TEST(ray, complex_extend) {
         // 442.33   306.1   44.59708
 
         Point3 result = ray_extend(&init, 12.4);
-        double result_arr[3] = {0};
+        double result_arr[3] = {};
         Point3_as_array(&result, result_arr);
 
         ASSERT_THAT(result_arr, ElementsAre(DoubleNear(442.33, fault_tol),

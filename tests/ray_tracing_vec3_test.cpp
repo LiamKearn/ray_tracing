@@ -34,7 +34,7 @@ TEST(vec3, simple_cross) {
         Point3 y = {2, 7, 1};
 
         Point3 result = Point3_cross(&x, &y);
-        double result_arr[3] = {0};
+        double result_arr[3] = {};
         Point3_as_array(&result, result_arr);
         ASSERT_THAT(result_arr, ElementsAre(-18, 3, 15));
 }
@@ -44,7 +44,7 @@ TEST(vec3, complex_cross) {
         Point3 y = {2, 31.32901, 10.3};
 
         Point3 result = Point3_cross(&x, &y);
-        double result_arr[3] = {0};
+        double result_arr[3] = {};
         Point3_as_array(&result, result_arr);
         ASSERT_THAT(result_arr, ElementsAre(DoubleNear(-56.7825, fault_tol),
                                             DoubleNear(-28.503, fault_tol),
@@ -74,7 +74,7 @@ TEST(vec3, simple_unit_vector) {
         // 0.2981424        0.59628479      0.74535599
 
         Point3 result = Point3_unit_vector(&a);
-        double result_arr[3] = {0};
+        double result_arr[3] = {};
         Point3_as_array(&result, result_arr);
         ASSERT_THAT(result_arr,
                     ElementsAre(DoubleNear(0.2981424, fault_tol * 1e-3),
