@@ -170,5 +170,11 @@ static inline ALIAS JOIN(ALIAS, unit_vector)(const ALIAS *v) {
     return copy;
 }
 
+static inline void JOIN(ALIAS, negate)(ALIAS *v) {
+    v->x = -(v->x);
+    v->y = -(v->y);
+    v->z = -(v->z);
+}
+
 #undef T
 #undef ALIAS
