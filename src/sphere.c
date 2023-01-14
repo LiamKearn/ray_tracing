@@ -39,8 +39,10 @@ bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
 
     Point3 hit_loc = ray_extend(ray, root);
     record->dist = root;
-    record->p = hit_loc;
-    record->normal = Point3_subtract(&ray->direction, &hit_loc);
+    record->hit_location = hit_loc;
+    Point3 outward_normal = Point3_cpy_op_divide(
+        Point3_subtract(&record->hit_location, &s->center), s->radius);
+    hit_record_set_normal_face(record, ray, outward_normal);
 
     return true;
 }

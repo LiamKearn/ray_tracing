@@ -1,31 +1,48 @@
 #include "cube.h"
 #include "hittable_aggregate.h"
+#include "math_util.h"
 #include "sphere.h"
 #include "vec3_defs.h"
 
 #define IMAGE_WIDTH 800
 
-void test(void) {
-    Hittable *h1 = new_sphere((Point3){.y = 44.1111}, 931813);
-    Hittable *h2 = new_sphere((Point3){.x = 4.28301, .z = 3813.3}, 2);
+Point3 world_ray_color(const Ray *ray, const HittableAggregate *world) {
+    HitRecord record;
 
-    HittableAggregate* ha = new_hittable_aggregate();
-    HITTABLE_AGGREGATE_PUSH(ha, *h1);
-    HITTABLE_AGGREGATE_PUSH(ha, *h2);
+    Point3 color_white = {1.0, 1.0, 1.0};
+    Point3 color_blue = {0.5, 0.7, 1.0};
 
-    Hittable *h = hittable_aggregate_to_hittable(ha);
+    if (hittable_aggregate_hit(world, ray, 0, INFINITY, &record)) {
+        Point3 color = {1, 1, 1};
+        Point3_i_add(&color, &record.normal);
+        Point3_op_multiply(&color, 0.5);
+        return color;
+    }
+    Point3 unit_direction = Point3_unit_vector(&ray->direction);
 
-    hittable_aggregate_free(ha);
+    double dist = 0.5 * (unit_direction.y + 1.0);
+    double y = 1.0 - dist;
+    Point3_op_multiply(&color_white, y);
+    Point3_op_multiply(&color_blue, dist);
+
+    return Point3_add(&color_white, &color_blue);
 }
 
 int main() {
-    test();
     /* ------------------ \\
     ||       Image        ||
     \\ ------------------ */
 
     const double aspect_ratio = 16.0 / 9.0;
     const int image_height = IMAGE_WIDTH / aspect_ratio;
+
+    /* ------------------ \\
+    ||       World        ||
+    \\ ------------------ */
+
+    HittableAggregate *world = new_hittable_aggregate();
+    DYN_ARR_PUSH(world, *new_sphere((Point3){.z = -1}, 0.5));
+    DYN_ARR_PUSH(world, *new_sphere((Point3){.y = -100.5, .z = -1}, 100));
 
     /* ------------------ \\
     ||       Camera       ||
@@ -80,7 +97,9 @@ int main() {
             Point3 dir = Point3_subtract(&far, &origin);
             Ray r = {origin, dir};
 
-            RGBColor pixel = ray_color(&r);
+            Point3 temp_pixel = world_ray_color(&r, world);
+            RGBColor pixel = *(RGBColor*) &temp_pixel;
+            // RGBColor pixel = ray_color(&r);
             rgbcolor_write(stdout, &pixel);
         }
     }

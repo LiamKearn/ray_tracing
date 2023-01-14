@@ -1,6 +1,7 @@
 #pragma once
 
 #include "debug_utils.h"
+#include "hit_record.h"
 #include "hittable.h"
 #include "vec3_defs.h"
 

@@ -6,10 +6,11 @@ RGBColor ray_color(const Ray *ray) {
 
     for (size_t i = 0; i < sizeof(hs) / sizeof(Hittable *); i++) {
         Hittable *h = hs[i];
-        HitRecord hit_rec = {0};
-        bool result = h->hit(h->data, ray, 0.01, 5.0, &hit_rec);
+        HitRecord hit_rec = {};
+        bool ray_did_intersect_with_hittable =
+            h->hit(h->data, ray, 0.0, 10, &hit_rec);
 
-        if (result) {
+        if (ray_did_intersect_with_hittable) {
             RGBColor normal_shade = *((RGBColor *)&hit_rec.normal);
             assert(fabs(hit_rec.normal.x - normal_shade.x) < DBL_EPSILON);
             assert(fabs(hit_rec.normal.y - normal_shade.y) < DBL_EPSILON);
