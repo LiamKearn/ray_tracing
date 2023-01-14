@@ -4,6 +4,7 @@ target_sources(engine
     PUBLIC
     ray.c
     hittable.c
+    hit_record.c
     hittable_aggregate.c
     sphere.c
     cube.c
