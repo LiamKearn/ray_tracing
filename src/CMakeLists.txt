@@ -16,7 +16,7 @@ target_include_directories(engine
     ${CMAKE_CURRENT_LIST_DIR}
     )
 
-target_link_libraries(engine vec3 debug_utils m)
+target_link_libraries(engine vec3 math_util debug_utils m)
 
 add_executable(renderer)
 

@@ -1,3 +1,19 @@
+add_library(math_util)
+
+target_sources(math_util
+    PUBLIC
+    math_util.h
+    )
+
+set_target_properties(math_util PROPERTIES LINKER_LANGUAGE C)
+
+target_include_directories(math_util
+    PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}
+    )
+
+target_link_libraries(math_util m)
+
 add_library(vec3)
 
 target_sources(vec3
@@ -12,7 +28,7 @@ target_include_directories(vec3
     ${CMAKE_CURRENT_LIST_DIR}
     )
 
-target_link_libraries(vec3 m)
+target_link_libraries(vec3 math_util m)
 
 add_library(debug_utils)
 
