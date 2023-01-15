@@ -1,11 +1,11 @@
 #!/usr/bin/env fish
 
 set root_dir (status dirname)
-find $root_dir/src -name "*.c" | xargs clang-format \
+find $root_dir/src $root_dir/inc -name "*.c" | xargs clang-format \
     -style="{BasedOnStyle: llvm, IndentWidth: 4}" \
     -i
 
-find $root_dir/src -name "*.h" | xargs clang-format \
+find $root_dir/src $root_dir/inc -name "*.h" | xargs clang-format \
     -style="{BasedOnStyle: llvm, IndentWidth: 4}" \
     -i
 
