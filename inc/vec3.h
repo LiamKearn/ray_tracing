@@ -1,5 +1,6 @@
 #ifndef VEC3_H
 #define VEC3_H
+#include "math_util.h"
 #include <math.h>
 #endif
 
@@ -174,6 +175,32 @@ static inline void JOIN(ALIAS, negate)(ALIAS *v) {
     v->x = -(v->x);
     v->y = -(v->y);
     v->z = -(v->z);
+}
+
+static inline ALIAS JOIN(ALIAS, random)(void) {
+    return (ALIAS){
+        rand_double(),
+        rand_double(),
+        rand_double(),
+    };
+}
+
+static inline ALIAS JOIN(ALIAS, random_between)(double min, double max) {
+    return (ALIAS){
+        rand_double_between(min, max),
+        rand_double_between(min, max),
+        rand_double_between(min, max),
+    };
+}
+
+static inline ALIAS JOIN(ALIAS, random_in_unit_sphere)(void) {
+    while (1) {
+        ALIAS p = JOIN(ALIAS, random_between)(-1, 1);
+        double r = JOIN(ALIAS, length_squared)(&p);
+        if (r >= 1)
+            continue;
+        return p;
+    }
 }
 
 #undef T

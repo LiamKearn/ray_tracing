@@ -26,4 +26,3 @@
 
 #define VEC3_DEBUG(vec3)                                                       \
     fprintf(stderr, FMT_STR3(vec3.x), #vec3, vec3.x, vec3.y, vec3.z);
-

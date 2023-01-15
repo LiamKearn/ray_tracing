@@ -6,23 +6,33 @@
 #include "vec3_defs.h"
 #include <stdlib.h>
 
-#define IMAGE_WIDTH 800
-#define SAMPLES_PER_PIXEL 500
+#define IMAGE_WIDTH 1600
+#define SAMPLES_PER_PIXEL 10
+#define MAX_DEPTH 50
 
-Point3 world_ray_color(const Ray *ray, const HittableAggregate *world) {
+Point3 world_ray_color(const Ray *ray, const HittableAggregate *world,
+                       int depth) {
     HitRecord record;
+
+    if (depth <= 0) {
+        return (Point3){};
+    }
 
     Point3 color_white = {1.0, 1.0, 1.0};
     Point3 color_blue = {0.5, 0.7, 1.0};
 
-    if (hittable_aggregate_hit(world, ray, 0, INFINITY, &record)) {
-        Point3 color = {1, 1, 1};
-        Point3_i_add(&color, &record.normal);
-        Point3_op_multiply(&color, 0.5);
-        return color;
+    if (hittable_aggregate_hit(world, ray, 0.001, INFINITY, &record)) {
+        Point3 target = Point3_add(&record.normal, &record.hit_location);
+        Point3 rand = Point3_random_in_unit_sphere();
+        Point3_i_add(&target, &rand);
+        Ray temp = {.origin = record.hit_location,
+                    .direction =
+                        Point3_subtract(&target, &record.hit_location)};
+        Point3 new_color = world_ray_color(&temp, world, depth - 1);
+        return Point3_cpy_op_multiply(new_color, 0.5);
     }
-    Point3 unit_direction = Point3_unit_vector(&ray->direction);
 
+    Point3 unit_direction = Point3_unit_vector(&ray->direction);
     double dist = 0.5 * (unit_direction.y + 1.0);
     double y = 1.0 - dist;
     Point3_op_multiply(&color_white, y);
@@ -79,7 +89,7 @@ int main() {
                 Ray r =
                     camera_ray_for_vertical_horizontal_offsets(&camera, u, v);
 
-                Point3 temp_pixel = world_ray_color(&r, world);
+                Point3 temp_pixel = world_ray_color(&r, world, MAX_DEPTH);
                 RGBColor pixel = *(RGBColor *)&temp_pixel;
 
                 RGBColor_i_add(&color, &pixel);

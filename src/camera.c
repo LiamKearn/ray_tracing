@@ -16,8 +16,8 @@ Camera new_camera(double aspect_ratio, double viewport_height,
     // auto lower_left_corner = origin - horizontal/2 - vertical/2 - vec3(0, 0,
     // focal_length);
     Point3 lower_left_corner = cam.origin;
-    Point3 h = Point3_cpy_op_divide(&cam.horizontal, 2);
-    Point3 v = Point3_cpy_op_divide(&cam.vertical, 2);
+    Point3 h = Point3_cpy_op_divide(cam.horizontal, 2);
+    Point3 v = Point3_cpy_op_divide(cam.vertical, 2);
     Point3_i_subtract(&lower_left_corner, &h);
     Point3_i_subtract(&lower_left_corner, &v);
     Point3 x = {.z = focal_length};
@@ -33,8 +33,8 @@ Ray camera_ray_for_vertical_horizontal_offsets(const Camera *cam, double u,
         .origin = cam->origin,
     };
 
-    Point3 uh = Point3_cpy_op_multiply(&cam->horizontal, u);
-    Point3 vv = Point3_cpy_op_multiply(&cam->vertical, v);
+    Point3 uh = Point3_cpy_op_multiply(cam->horizontal, u);
+    Point3 vv = Point3_cpy_op_multiply(cam->vertical, v);
     Point3 temp = Point3_add(&uh, &vv);
     Point3 far = Point3_add(&cam->lower_left_corner, &temp);
     ray.direction = Point3_subtract(&far, &cam->origin);

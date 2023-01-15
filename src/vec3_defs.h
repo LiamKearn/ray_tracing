@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math_util.h"
+#include <math.h>
 #include <stdio.h>
 
 #define RGB_MAX 255
@@ -19,11 +20,17 @@ static inline void rgbcolor_write(FILE *stream, const RGBColor *t,
                                   int samples_per_pixel) {
     double scale = 1.0 / samples_per_pixel;
 
-    RGBColor a = RGBColor_cpy_op_multiply(t, scale);
+    RGBColor a = RGBColor_cpy_op_multiply(*t, scale);
 
-    int red = 256 * clamp(a.x, 0.0, 0.999);
-    int green = 256 * clamp(a.y, 0.0, 0.999);
-    int blue = 256 * clamp(a.z, 0.0, 0.999);
+    // Gamma correction of 2.0.
+    scale *= 2;
+    double r = sqrt(scale * a.x);
+    double g = sqrt(scale * a.y);
+    double b = sqrt(scale * a.z);
+
+    int red = 256 * clamp(r, 0.0, 0.999);
+    int green = 256 * clamp(g, 0.0, 0.999);
+    int blue = 256 * clamp(b, 0.0, 0.999);
 
     fprintf(stream, "%d %d %d\n", red, green, blue);
 }
