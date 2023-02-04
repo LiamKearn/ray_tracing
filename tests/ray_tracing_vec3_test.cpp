@@ -1,9 +1,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-extern "C" {
 #include "../src/vec3_defs.h"
-}
 
 using ::testing::DoubleNear;
 using ::testing::ElementsAre;

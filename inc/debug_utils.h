@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // clang-format off
 #define FMT_STR(type) _Generic((type), \
     int: "%s: %d\n",    \
@@ -26,3 +30,7 @@
 
 #define VEC3_DEBUG(vec3)                                                       \
     fprintf(stderr, FMT_STR3(vec3.x), #vec3, vec3.x, vec3.y, vec3.z);
+
+#ifdef __cplusplus
+}
+#endif

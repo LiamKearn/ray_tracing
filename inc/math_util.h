@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <math.h>
 #include <stdlib.h>
 
@@ -20,3 +24,7 @@ static inline double clamp(double value, double min, double max) {
         return max;
     return value;
 }
+
+#ifdef __cplusplus
+}
+#endif

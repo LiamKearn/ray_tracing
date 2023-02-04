@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "math_util.h"
 #include <math.h>
 #include <stdio.h>
@@ -34,3 +38,7 @@ static inline void rgbcolor_write(FILE *stream, const RGBColor *t,
 
     fprintf(stream, "%d %d %d\n", red, green, blue);
 }
+
+#ifdef __cplusplus
+}
+#endif
