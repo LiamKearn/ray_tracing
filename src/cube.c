@@ -12,7 +12,7 @@ Hittable new_cube(Point3 a, Point3 b) {
     data->a = a;
     data->b = b;
 
-    Hittable h =  {
+    Hittable h = {
         .data = data,
         .hit = &cube_hit,
         .free = &cube_free,
@@ -22,7 +22,7 @@ Hittable new_cube(Point3 a, Point3 b) {
 }
 
 bool cube_free(void *d) {
-    free((CubeData*) d);
+    free((CubeData *)d);
 
     return true;
 }

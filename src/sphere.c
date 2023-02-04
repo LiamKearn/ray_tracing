@@ -49,7 +49,7 @@ bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
 }
 
 bool sphere_free(void *d) {
-    free((SphereData*) d);
+    free((SphereData *)d);
 
     return true;
 }
