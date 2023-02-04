@@ -6,16 +6,23 @@ bool cube_hit(void *data, const Ray *ray, double t_min, double t_max,
     return true;
 }
 
-Hittable *new_cube(Point3 a, Point3 b) {
+Hittable new_cube(Point3 a, Point3 b) {
     CubeData *data = malloc(sizeof(CubeData));
 
     data->a = a;
     data->b = b;
 
-    Hittable *h = malloc(sizeof(Hittable));
-
-    h->data = data;
-    h->hit = &cube_hit;
+    Hittable h =  {
+        .data = data,
+        .hit = &cube_hit,
+        .free = &cube_free,
+    };
 
     return h;
+}
+
+bool cube_free(void *d) {
+    free((CubeData*) d);
+
+    return true;
 }

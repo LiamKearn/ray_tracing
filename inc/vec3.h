@@ -203,5 +203,10 @@ static inline ALIAS JOIN(ALIAS, random_in_unit_sphere)(void) {
     }
 }
 
+static inline ALIAS JOIN(ALIAS, random_unit_vector)(void) {
+    ALIAS random = JOIN(ALIAS, random_in_unit_sphere)();
+    return JOIN(ALIAS, unit_vector)(&random);
+}
+
 #undef T
 #undef ALIAS

@@ -27,3 +27,5 @@ target_sources(renderer
 
 target_link_libraries(renderer engine)
 
+target_compile_options(renderer PRIVATE -fsanitize=address)
+target_link_options(renderer PRIVATE -fsanitize=address)

@@ -13,4 +13,6 @@ typedef struct {
 bool sphere_hit(void *data, const Ray *ray, double t_min, double t_max,
                 HitRecord *record);
 
-Hittable *new_sphere(Point3 center, double radius);
+Hittable new_sphere(Point3 center, double radius);
+
+bool sphere_free(void *d);

@@ -1,5 +1,6 @@
 #include "hittable_aggregate.h"
 
+// In a roundabout way "Take the first successful intersection or 'hit'".
 bool hittable_aggregate_hit(const HittableAggregate *ha, const Ray *ray,
                             double t_min, double t_max, HitRecord *record) {
     HitRecord temp_rec;
@@ -19,18 +20,10 @@ bool hittable_aggregate_hit(const HittableAggregate *ha, const Ray *ray,
     return hit_anything;
 }
 
-HittableAggregate *new_hittable_aggregate(void) {
-    HittableAggregate *data = malloc(sizeof(HittableAggregate));
-    return data;
+void hittable_aggregate_free(HittableAggregate *ha) {
+    for (size_t i = 0; i < ha->count; i++) {
+        Hittable h = ha->children[i];
+        h.free(h.data);
+    }
+    free(ha->children);
 }
-
-Hittable *hittable_aggregate_to_hittable(HittableAggregate *ha) {
-    Hittable *h = malloc(sizeof(Hittable));
-
-    h->data = ha;
-
-    return h;
-}
-
-// TODO: Almost certain that this dynamic array doesn't work properly :-)
-void hittable_aggregate_free(HittableAggregate *ha) { free(ha); }

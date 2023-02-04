@@ -2,6 +2,7 @@
 
 #include "hittable.h"
 #include "ray.h"
+#include "sphere.h"
 #include "vec3_defs.h"
 #include <stdbool.h>
 #include <stdlib.h>
@@ -27,9 +28,5 @@ typedef struct {
 
 bool hittable_aggregate_hit(const HittableAggregate *ha, const Ray *ray,
                             double t_min, double t_max, HitRecord *record);
-
-HittableAggregate *new_hittable_aggregate(void);
-
-Hittable *hittable_aggregate_to_hittable(HittableAggregate *ha);
 
 void hittable_aggregate_free(HittableAggregate *ha);

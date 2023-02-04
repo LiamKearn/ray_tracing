@@ -12,4 +12,6 @@ typedef struct {
 bool cube_hit(void *data, const Ray *ray, double t_min, double t_max,
               HitRecord *record);
 
-Hittable *new_cube(Point3 a, Point3 b);
+Hittable new_cube(Point3 a, Point3 b);
+
+bool cube_free(void *d);

@@ -25,6 +25,10 @@ static inline double clamp(double value, double min, double max) {
     return value;
 }
 
+static inline double lerp(double t, double min, double max) {
+    return max * t + min * (1 - t);
+}
+
 #ifdef __cplusplus
 }
 #endif
