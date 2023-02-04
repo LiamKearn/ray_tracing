@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+set iter 0
+
+trap "echo \" Ran for: $iter iterations\"; exit;" SIGINT
+while test $status = 0
+    ./build/bin/renderer 1>/dev/null
+    set iter (math $iter + 1)
+end
+
+echo "Issue @ $iter iterations"
